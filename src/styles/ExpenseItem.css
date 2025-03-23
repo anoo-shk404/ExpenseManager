@@ -1,0 +1,31 @@
+/* ExpenseItem.css */
+.expense-item {
+    transition: background-color 0.2s ease;
+  }
+  
+  .expense-item:hover {
+    background-color: #F7F9FA;
+  }
+  
+  .expense-item td {
+    color: #2A3D45;
+  }
+  
+  .delete-btn {
+    background-color: #F48668;
+    color: white;
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .delete-btn:hover {
+    background-color: #E57354;
+  }

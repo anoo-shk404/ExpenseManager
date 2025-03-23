@@ -1,0 +1,52 @@
+/* ParticipantsSection.css */
+.participants-section {
+  background-color: #F7F9FA;
+  border-radius: 8px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(42, 61, 69, 0.05);
+}
+
+.add-participant {
+  display: flex;
+  margin-bottom: 25px;
+}
+
+.add-participant input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #E0E9EB;
+  border-radius: 4px 0 0 4px;
+  font-size: 0.9rem;
+  color: #2A3D45;
+  background-color: white;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-participant input:focus {
+  outline: none;
+  border-color: #5EAAA8;
+  box-shadow: 0 0 0 2px rgba(94, 170, 168, 0.2);
+}
+
+.add-participant button {
+  padding: 12px 20px;
+  background-color: #5EAAA8;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.add-participant button:hover {
+  background-color: #4A8C8A;
+}
+
+.participants-list {
+  list-style: none;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
