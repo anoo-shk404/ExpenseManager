@@ -7,23 +7,23 @@ const SettlementList = ({ expenses, participants }) => {
     return null;
   }
 
-  // Calculate how much each person has paid
+  
   const calculateBalances = () => {
-    // Initialize balances for all participants
+   
     const balances = {};
     participants.forEach(participant => {
       balances[participant] = 0;
     });
 
-    // Calculate what each person has paid and what they owe
+  
     expenses.forEach(expense => {
       const paidBy = expense.paidBy;
       const amountPerPerson = expense.amountPerPerson;
       
-      // Add the total amount to the person who paid
+      
       balances[paidBy] += expense.amount;
       
-      // Subtract the amount each participant owes
+     
       expense.participants.forEach(participant => {
         balances[participant] -= amountPerPerson;
       });
@@ -32,17 +32,17 @@ const SettlementList = ({ expenses, participants }) => {
     return balances;
   };
 
-  // Generate settlement transactions
+
   const generateSettlements = () => {
     const balances = calculateBalances();
     const settlements = [];
 
-    // Create arrays of debtors and creditors
+    
     const debtors = [];
     const creditors = [];
 
     for (const [person, balance] of Object.entries(balances)) {
-      // Round to 2 decimal places to avoid floating point issues
+   
       const roundedBalance = parseFloat(balance.toFixed(2));
       
       if (roundedBalance < 0) {
@@ -52,19 +52,19 @@ const SettlementList = ({ expenses, participants }) => {
       }
     }
 
-    // Sort by amount (largest to smallest)
+
     debtors.sort((a, b) => b.amount - a.amount);
     creditors.sort((a, b) => b.amount - a.amount);
 
-    // Create settlements
+   
     while (debtors.length > 0 && creditors.length > 0) {
       const debtor = debtors[0];
       const creditor = creditors[0];
       
-      // Find the minimum of what the debtor owes and what the creditor is owed
+
       const amount = Math.min(debtor.amount, creditor.amount);
       
-      // Round to 2 decimal places
+ 
       const roundedAmount = parseFloat(amount.toFixed(2));
       
       if (roundedAmount > 0) {
@@ -75,11 +75,10 @@ const SettlementList = ({ expenses, participants }) => {
         });
       }
 
-      // Update amounts
+
       debtor.amount -= amount;
       creditor.amount -= amount;
       
-      // Remove if settled
       if (debtor.amount < 0.01) debtors.shift();
       if (creditor.amount < 0.01) creditors.shift();
     }
