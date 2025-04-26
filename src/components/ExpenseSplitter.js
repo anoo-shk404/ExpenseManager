@@ -6,7 +6,7 @@ import SettlementList from './SettlementList';
 import '../styles/ExpenseSplitter.css';
 
 const ExpenseSplitter = () => {
-  // Load initial state from localStorage or use defaults
+
   const [participants, setParticipants] = useState(() => {
     const savedParticipants = localStorage.getItem('participants');
     return savedParticipants ? JSON.parse(savedParticipants) : [];
@@ -19,59 +19,57 @@ const ExpenseSplitter = () => {
   
   const [showExpenseForm, setShowExpenseForm] = useState(false);
 
-  // Add a new expense
+
   const handleAddExpense = (newExpense) => {
     const updatedExpenses = [...expenses, newExpense];
     setExpenses(updatedExpenses);
     setShowExpenseForm(false);
     
-    // Update localStorage
+    
     localStorage.setItem('expenses', JSON.stringify(updatedExpenses));
   };
 
-  // Delete an expense
+ 
   const handleDeleteExpense = (expenseId) => {
     const updatedExpenses = expenses.filter(expense => expense.id !== expenseId);
     setExpenses(updatedExpenses);
     
-    // Update localStorage
+    
     localStorage.setItem('expenses', JSON.stringify(updatedExpenses));
   };
 
-  // Update expenses if participants are removed
+
   useEffect(() => {
-    // Filter out removed participants from each expense
+    
     const updatedExpenses = expenses.map(expense => {
-      // Update the participants list
+     
       const updatedParticipantList = expense.participants.filter(p => 
         participants.includes(p)
       );
       
-      // Remove expense if the person who paid is no longer a participant
+    
       if (!participants.includes(expense.paidBy)) {
         return null;
       }
       
-      // If all participants were removed, keep the expense as is
-      // This prevents errors if all participants for an expense are removed
+      
+     
       if (updatedParticipantList.length === 0) {
         return expense;
       }
       
-      // Recalculate amount per person
       return {
         ...expense,
         participants: updatedParticipantList,
         amountPerPerson: expense.amount / updatedParticipantList.length
       };
-    }).filter(expense => expense !== null); // Remove any nullified expenses
+    }).filter(expense => expense !== null); 
     
-    // Update expenses state and localStorage
     setExpenses(updatedExpenses);
     localStorage.setItem('expenses', JSON.stringify(updatedExpenses));
   }, [participants]);
 
-  // Reset all data
+
   const handleResetAll = () => {
     if (window.confirm('Are you sure you want to reset all data? This will delete all participants and expenses.')) {
       setParticipants([]);
